@@ -1,0 +1,232 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 1010355,
+    "appName": "Keyboard",
+    "appType": "app",
+    "version": {
+      "code": 1,
+      "name": "1.0.1"
+    },
+    "icon": "icon.png",
+    "vender": "CuberQAQ",
+    "description": "Keyboard app"
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "debug": false,
+  "targets": {
+    "480x480": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/default/keyboard/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Input Method",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3-pro",
+          "deviceSource": 229
+        },
+        {
+          "name": "gtr3-pro-w",
+          "deviceSource": 230
+        },
+        {
+          "name": "gtr3-pro-l",
+          "deviceSource": 6095106
+        },
+        {
+          "name": "ba-1",
+          "deviceSource": 8519936
+        },
+        {
+          "name": "ba-2",
+          "deviceSource": 8519937
+        },
+        {
+          "name": "ba-3",
+          "deviceSource": 8519939
+        }
+      ],
+      "designWidth": 480
+    },
+    "466x466": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/default/keyboard/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Input Method",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr4",
+          "deviceSource": 7930112
+        },
+        {
+          "name": "gtr4-w",
+          "deviceSource": 7930113
+        }
+      ],
+      "designWidth": 480
+    },
+    "454x454": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/default/start/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Input Method",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gtr3",
+          "deviceSource": 226
+        },
+        {
+          "name": "gtr3-w",
+          "deviceSource": 227
+        },
+        {
+          "name": "t-rex2",
+          "deviceSource": 418
+        },
+        {
+          "name": "t-rex2-w",
+          "deviceSource": 419
+        }
+      ],
+      "designWidth": 480
+    },
+    "390x450": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/default/start/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Input Method",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gts3",
+          "deviceSource": 224
+        },
+        {
+          "name": "gts3-w",
+          "deviceSource": 225
+        },
+        {
+          "name": "gts4",
+          "deviceSource": 7995648
+        },
+        {
+          "name": "gts4-w",
+          "deviceSource": 7995649
+        }
+      ],
+      "designWidth": 480
+    },
+    "336x384": {
+      "module": {
+        "page": {
+          "pages": [
+            "page/default/start/index.page"
+          ],
+          "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "Input Method",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light"
+          }
+        },
+        "app-side": {
+          "path": "app-side/index"
+        },
+        "setting": {
+          "path": "setting/index"
+        }
+      },
+      "platforms": [
+        {
+          "name": "gts4-mini",
+          "deviceSource": 246
+        },
+        {
+          "name": "gts4-mini",
+          "deviceSource": 247
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Keyboard"
+    },
+    "zh-CN": {
+      "appName": "输入法"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
