@@ -7,7 +7,12 @@
 import { dataManager } from "./dataManager";
 import { InputBoxLib } from "./inputboxLib";
 import { KeyBoardLib } from "./keyboardLib";
-import { BOUNDARY_Y } from "./styles";
+import {
+    KEYBOARD_TYPE,
+    INPUTBOX_TYPE,
+    BOUNDARY_Y,
+    LINK_EVENT_TYPE,
+} from "./styles";
 
 const globalData = getApp()._options.globalData;
 
@@ -178,15 +183,12 @@ export class InputMethod {
             this.controlCallBack[2]
         ); // TODO 可能不存在这种事件
         // 返回
-        if (
-            globaldataManager.params.targetAppid &&
-            globaldataManager.params.targetUrl
-        ) {
+        if (globalData.params.targetAppid && globalData.params.targetUrl) {
             hmApp.startApp({
-                appid: globaldataManager.params.targetAppid,
-                url: globaldataManager.params.targetUrl,
+                appid: globalData.params.targetAppid,
+                url: globalData.params.targetUrl,
                 param: JSON.stringify({
-                    ...globaldataManager.params.targetExtraParam,
+                    ...globalData.params.targetExtraParam,
                     input: this.inputbox.getText(),
                 }),
             });
@@ -195,4 +197,6 @@ export class InputMethod {
     delete() {
         // vibrate.stop();
     }
+    static KEYBOARD_TYPE = KEYBOARD_TYPE;
+    static INPUTBOX_TYPE = INPUTBOX_TYPE;
 }
