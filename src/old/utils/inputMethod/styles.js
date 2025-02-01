@@ -88,33 +88,3 @@ export const jsonExample = {
     safetyDistance: px(40), // 安全距离
     delTimeMs: 180, // 删除按键触发时间（毫秒）
 };
-let ball = null; // 全局变量：小球
-
-// 点击事件处理函数
-export function click() {
-    // 振动反馈（注释掉的代码）
-    // vibrate.stop();
-    // vibrate.scene = 0;
-    // vibrate.start();
-
-    if (ball == null) {
-        // 创建小球
-        ball = hmUI.createWidget(hmUI.widget.FILL_RECT, {
-            x: 0,
-            y: 0,
-            w: px(30),
-            h: px(30),
-            radius: px(15),
-            color: 0xff0000, // 红色
-        });
-    } else {
-        // 设置小球颜色为红色
-        ball.setProperty(hmUI.prop.COLOR, 0xff0000);
-    }
-
-    // 定时器：50ms后将小球颜色改为黑色
-    let timerId = timer.createTimer(50, 2147483648, (option) => {
-        ball.setProperty(hmUI.prop.COLOR, 0x000000); // 黑色
-        timer.stopTimer(timerId); // 停止定时器
-    });
-}
