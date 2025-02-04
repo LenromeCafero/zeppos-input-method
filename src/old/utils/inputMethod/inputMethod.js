@@ -46,13 +46,11 @@ export class InputMethod {
             logger.debug("keyboard.js: ERROR inputbox_type overflow");
             return;
         }
-        //TODO this.inputbox = new InputBoxLib[this.inputboxType]({test:666}) //TODO
         this.inputbox = new InputBoxLib[inputbox_type]({
             father: this,
             text,
             title,
         });
-        // vibrate = hmSensor.createSensor(hmSensor.id.VIBRATE);
         this.controlPlane = null;
         this.controlCallBack = [
             (info) => {
@@ -189,13 +187,19 @@ export class InputMethod {
                 url: globalData.params.targetUrl,
                 param: JSON.stringify({
                     ...globalData.params.targetExtraParam,
-                    input: this.inputbox.getText(),
+                    input: this.inputbox.text,
                 }),
             });
         }
     }
     delete() {
         // vibrate.stop();
+    }
+    getText() {
+        return this.inputbox.text;
+    }
+    setText(text) {
+        this.inputbox.text = text;
     }
     static KEYBOARD_TYPE = KEYBOARD_TYPE;
     static INPUTBOX_TYPE = INPUTBOX_TYPE;

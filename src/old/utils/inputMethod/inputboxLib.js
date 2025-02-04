@@ -2,19 +2,13 @@
 // onCreate()
 // onTouch(event, info) 若位置不在范围内event为MOVE_OUT 返回值为输入类型
 // onDelete()
-// getText()
 
 import { dataManager } from "./dataManager";
 import { Fx } from "../fx";
 import { click } from "./method";
-import { LINK_EVENT_TYPE } from "./styles";
+import { LINK_EVENT_TYPE,InputboxCondition } from "./styles";
 const logger = DeviceRuntimeCore.HmLogger.getLogger("inputboxLib.js");
 
-const InputboxCondition = {
-    NORMAL: 0,
-    PRESS: 1,
-    MOVE: 2,
-};
 
 // 光标类 用于控制光标的位置与动画
 class Cursor {
@@ -506,8 +500,5 @@ export const InputBoxLib = [
             // this.textWidget.setProperty(hmUI.prop.TEXT, this.text)
         }
         onDelete() {}
-        getText() {
-            return this.text;
-        }
     },
 ];

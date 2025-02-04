@@ -10,7 +10,7 @@ Page({
         logger.debug(InputMethod.KEYBOARD_TYPE.ZH_CN_PY);
         hmUI.setLayerScrolling(false); //关闭默认layer的scrolling
         inputMethod = new InputMethod({
-            keyboard_list: [InputMethod.KEYBOARD_TYPE.EN],
+            keyboard_list: [InputMethod.KEYBOARD_TYPE.ZH_CN_PY],
             inputbox_type: [0],
             max_byte: 50,
             text: "",
