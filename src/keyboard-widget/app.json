@@ -1,0 +1,63 @@
+{
+    "configVersion": "v3",
+    "app": {
+        "appId": 26652,
+        "appName": "Empty",
+        "appType": "app",
+        "version": {
+            "code": 1,
+            "name": "1.0.0"
+        },
+        "icon": "icon.png",
+        "vender": "zepp",
+        "description": "empty application"
+    },
+    "permissions": [],
+    "runtime": {
+        "apiVersion": {
+            "compatible": "4.0",
+            "target": "4.0",
+            "minVersion": "4.0"
+        }
+    },
+    "targets": {
+        "default": {
+            "module": {
+                "data-widget": {
+                    "widgets": [
+                        {
+                            "name": "en-US",
+                            "path": "data-widget/index",
+                            "icon": "icon.png",
+                            "runtime": {
+                                "ability": [
+                                    {
+                                        "name": "en-US",
+                                        "type": 2,
+                                        "subType": []
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "platforms": [
+                {
+                    "st": "r",
+                    "dw": 480
+                },
+                {
+                    "st": "s",
+                    "dw": 390
+                }
+            ]
+        }
+    },
+    "i18n": {
+        "en-US": {
+            "appName": "Empty"
+        }
+    },
+    "defaultLanguage": "en-US"
+}
