@@ -1,17 +1,18 @@
-// 类中包含
-// onCreate()
-// onTouch(event, info) 若位置不在范围内event为MOVE_OUT 返回值为输入类型
-// 返回值
-// onDelete()
-// link() inputbox和keyboard之间的通信事件处理
-
 import {
   BOUNDARY_Y,
   FUNCTION_BAR_H,
-  LINK_EVENT_TYPE,
-  KeyBoardCondition,
-  QWERT_Layout,
+  BUTTON_LINE_SAFETY_DISTANCE,
+  BUTTON_LINE_NUM,
+  BUTTON_CAPSLOCK_UP_IMG,
+  BUTTON_CAPSLOCK_DOWN_IMG,
+  FUNCTION_BAR_IMG_STYLE,
+  BACKGROUND_IMG_STYLE,
+  BUTTON_IMG_STYLE,
+  PRESS_MASK_STYLE,
+  CHOOSE_WORD_TEXT_STYLE,
 } from "./styles";
+import { QWERT_Layout } from "./layout";
+import { LINK_EVENT_TYPE, KeyBoardCondition, InputboxCondition } from "./enums";
 import { Fx } from "../fx";
 import * as hmUI from "@zos/ui";
 
@@ -26,8 +27,8 @@ class BaseKeyboard {
     this.functionBar = null;
     this.functionBarWidgets = [];
     this.buttonImg = null;
-    this.buttonLineSafeDistance = [10, 33, 79, null];
-    this.buttonLineNum = 4;
+    this.buttonLineSafeDistance = BUTTON_LINE_SAFETY_DISTANCE;
+    this.buttonLineNum = BUTTON_LINE_NUM;
     this.moreKeyTimer = null;
     this.condition = KeyBoardCondition.FREE;
     this.capsLock = false;
@@ -53,15 +54,9 @@ class BaseKeyboard {
   setCapsLock(bLock) {
     this.capsLock = bLock;
     if (bLock) {
-      this.buttonImg.setProperty(
-        hmUI.prop.SRC,
-        "image/keyboardEN_button_Earth_UP.png",
-      );
+      this.buttonImg.setProperty(hmUI.prop.SRC, BUTTON_CAPSLOCK_UP_IMG);
     } else {
-      this.buttonImg.setProperty(
-        hmUI.prop.SRC,
-        "image/keyboardEN_button_Earth.png",
-      );
+      this.buttonImg.setProperty(hmUI.prop.SRC, BUTTON_CAPSLOCK_DOWN_IMG);
     }
   }
   getKeyIndex(isFuncBar, info) {
@@ -183,21 +178,14 @@ class BaseKeyboard {
           case 27:
             break; // space
           case 28: // delete
-            console.log("timer for delete! create");
-
-            // 延迟5ms后开始检测
             this.longPressTimeoutID = setTimeout(() => {
               if (!(this.condition & KeyBoardCondition.PRESS)) return;
 
-              console.log("timer for delete! callback");
-
-              // 立即执行第一次删除
               this.father.link(true, {
                 event: LINK_EVENT_TYPE.DELETE,
                 data: 1,
               });
 
-              // 每隔180ms重复删除
               const interval = setInterval(() => {
                 if (this.condition & KeyBoardCondition.PRESS) {
                   this.father.link(true, {
@@ -216,15 +204,10 @@ class BaseKeyboard {
   }
   onCreate() {
     // 新建功能栏
-    this.functionBar = hmUI.createWidget(hmUI.widget.IMG, {
-      x: px(0),
-      y: px(400),
-      w: px(480),
-      h: px(480) - BOUNDARY_Y,
-      pos_x: 0,
-      pos_y: 0 - px(400),
-      src: "image/functionBar_Earth.png",
-    });
+    this.functionBar = hmUI.createWidget(
+      hmUI.widget.IMG,
+      FUNCTION_BAR_IMG_STYLE,
+    );
     new Fx({
       begin: px(400) - FUNCTION_BAR_H,
       end: BOUNDARY_Y,
@@ -241,22 +224,8 @@ class BaseKeyboard {
       onStop() {},
     });
     // 创建背景
-    this.background = hmUI.createWidget(hmUI.widget.IMG, {
-      x: px(0),
-      y: px(400),
-      w: px(480),
-      h: px(480) - BOUNDARY_Y - FUNCTION_BAR_H,
-      pos_x: 0,
-      pos_y: 0 - px(400),
-      src: "image/keyboard_bgd_Earth.png",
-    });
-    this.buttonImg = hmUI.createWidget(hmUI.widget.IMG, {
-      x: px(0),
-      y: px(400),
-      w: px(480),
-      h: px(240),
-      src: "image/keyboardEN_button_Earth.png",
-    });
+    this.background = hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMG_STYLE);
+    this.buttonImg = hmUI.createWidget(hmUI.widget.IMG, BUTTON_IMG_STYLE);
     new Fx({
       begin: px(400),
       end: BOUNDARY_Y + FUNCTION_BAR_H,
@@ -265,39 +234,19 @@ class BaseKeyboard {
       style: Fx.Styles.EASE_IN_QUAD,
       enable: true,
       func: (res) => {
-        if ("img" == "img") {
-          this.background.setProperty(hmUI.prop.MORE, {
+        this.background.setProperty(hmUI.prop.MORE, {
             y: res,
             pos_y: 0 - res,
           });
-        } else if ("img" == "rect") {
-          this.background.setProperty(hmUI.prop.Y, res);
-        }
         this.buttonImg.setProperty(hmUI.prop.Y, res);
       },
 
       onStop() {
-        /* console.log("background onStop") */
       },
     });
 
-    // 创建按钮遮罩
-    this.pressMask.widget = hmUI.createWidget(hmUI.widget.STROKE_RECT, {
-      x: px(500),
-      y: px(0),
-      w: px(42),
-      h: px(50),
-      color: 0xee6666,
-      line_width: px(3),
-      radius: 6,
-    });
-    this.chooseWordText.widget = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 0,
-      y: px(190),
-      w: px(480),
-      h: BOUNDARY_Y,
-      color: 0xffffff,
-      text_size: px(30),
+    this.pressMask.widget = hmUI.createWidget(hmUI.widget.STROKE_RECT,PRESS_MASK_STYLE );
+    this.chooseWordText.widget = hmUI.createWidget(hmUI.widget.TEXT, {...CHOOSE_WORD_TEXT_STYLE,
       text: this.chooseWordArray.join("  "),
     });
     this.chooseWordText.widget.setEnable(false);
@@ -347,7 +296,7 @@ class BaseKeyboard {
           break;
         case hmUI.event.MOVE_OUT:
         case hmUI.event.MOVE_IN:
-        case hmUI.event.MOVE: ///////////////////////
+        case hmUI.event.MOVE: 
           if (index < 26) {
             // input letter
             this.condition |= KeyBoardCondition.PRESS;

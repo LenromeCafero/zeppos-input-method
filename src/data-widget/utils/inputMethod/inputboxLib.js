@@ -6,7 +6,8 @@
 // import { dataManager } from "./dataManager";
 import * as hmUI from "@zos/ui";
 import { Fx } from "../fx";
-import { LINK_EVENT_TYPE, InputboxCondition } from "./styles";
+import { LINK_EVENT_TYPE, InputboxCondition } from "./enums";
+import { BACKGROUD_WIDGET_STYLE, MASK_STYLE, BUTTON_TEXT_WIDGET_STYLE, TITLE_WIDGET_STYLE } from "./styles";
 
 // 光标类 用于控制光标的位置与动画
 class Cursor {
@@ -294,39 +295,13 @@ export const InputBoxLib = {
       this.lastTouch = { x: 0, y: 0 };
     }
     onCreate() {
-      this.backgroundWidget = hmUI.createWidget(hmUI.widget.IMG, {
-        x: 0,
-        y: 0,
-        src: "image/inputbox_bgd_Earth.png",
-      });
+      this.backgroundWidget = hmUI.createWidget(hmUI.widget.IMG, BACKGROUD_WIDGET_STYLE);
       this.textLine.onCreate();
       this.cursor.onCreate();
-      this.mask = hmUI.createWidget(hmUI.widget.IMG, {
-        x: px(0),
-        y: px(0),
-        src: "image/inputbox_mask_Earth.png",
-      });
-      this.btnTextWidget = hmUI.createWidget(hmUI.widget.TEXT, {
-        x: px(335),
-        y: px(105),
-        w: px(80),
-        h: px(55),
-        text: "完成",
-        text_size: px(35),
-        color: 0xfff1a6,
-        align_h: hmUI.align.CENTER_H,
-        align_v: hmUI.align.CENTER_V,
-      });
-      this.titleWidget = hmUI.createWidget(hmUI.widget.TEXT, {
-        x: px(110),
-        y: px(25),
-        w: px(260),
-        h: px(40),
-        color: 0xeeeeee,
-        text_size: px(38),
+      this.mask = hmUI.createWidget(hmUI.widget.IMG, MASK_STYLE);
+      this.btnTextWidget = hmUI.createWidget(hmUI.widget.TEXT, BUTTON_TEXT_WIDGET_STYLE);
+      this.titleWidget = hmUI.createWidget(hmUI.widget.TEXT, {...TITLE_WIDGET_STYLE,
         text: this.title,
-        align_h: hmUI.align.CENTER_H,
-        align_v: hmUI.align.CENTER_V,
       });
     }
     onTouch(event, info) {

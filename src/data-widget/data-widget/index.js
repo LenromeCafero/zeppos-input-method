@@ -1,7 +1,7 @@
 import { InputMethod } from "../utils/inputMethod/inputMethod";
 const inputMethod = new InputMethod({
-  keyboard_type: "EN",
-  inputbox_type: "NORMAL",
+  keyboard_type: InputMethod.KEYBOARD_TYPE.ENGLISH,
+  inputbox_type: InputMethod.INPUTBOX_TYPE.NORMAL,
   text: "",
   title: "输入法",
 });

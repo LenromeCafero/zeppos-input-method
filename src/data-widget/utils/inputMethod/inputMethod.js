@@ -4,11 +4,18 @@
  * Describe: A JS class for Input Method
  */
 import * as hmUI from "@zos/ui";
-console.log("inputMethod.js");
 
 import { InputBoxLib } from "./inputboxLib";
 import { KeyBoardLib } from "./keyboardLib";
-import { BOUNDARY_Y, LINK_EVENT_TYPE } from "./styles";
+import {
+  KEYBOARD_TYPE,
+  INPUTBOX_TYPE,
+  LINK_EVENT_TYPE,
+  KeyBoardCondition,
+  InputboxCondition,
+} from "./enums";
+import { BOUNDARY_Y,CONTROL_PLANE_TEXT_STYLE } from "./styles";
+
 const app = getApp();
 const globalData = app._options.globalData;
 
@@ -16,22 +23,28 @@ const globalData = app._options.globalData;
 // 包含一个InputBox实例和一个Keyboard可选列表，通过一个control面板将触控事件分发给两个实例
 export class InputMethod {
   constructor({ keyboard_type, inputbox_type, text, title }) {
-    console.log("InputMethod constructor");
-    if (keyboard_type == undefined) {
-      this.keyboard_type = "EN";
-    } else {
-      this.keyboard_type = keyboard_type;
+    this.keyboardType = keyboard_type ?? KEYBOARD_TYPE.ENGLISH;
+    this.inputboxType = inputbox_type ?? INPUTBOX_TYPE.NORMAL;
+
+    if (!Object.values(KEYBOARD_TYPE).includes(this.keyboardType)) {
+      console.log(
+        "keyboard.js: ERROR invalid keyboard_type",
+        this.keyboardType,
+      );
+      return;
     }
-    if (!this.keyboard_type) {
-      console.log("keyboard.js: ERROR empty keyboard_type");
+    if (!Object.values(INPUTBOX_TYPE).includes(this.inputboxType)) {
+      console.log(
+        "keyboard.js: ERROR invalid inputbox_type",
+        this.inputboxType,
+      );
       return;
     }
 
-    this.keyboard = new KeyBoardLib[this.keyboard_type]({
+    this.keyboard = new KeyBoardLib[this.keyboardType]({
       father: this,
     });
-    this.inputboxType = inputbox_type;
-    this.inputbox = new InputBoxLib[inputbox_type]({
+    this.inputbox = new InputBoxLib[this.inputboxType]({
       father: this,
       text,
       title,
@@ -62,13 +75,7 @@ export class InputMethod {
   start() {
     this.inputbox.onCreate();
     this.keyboard.onCreate();
-    this.controlPlane = hmUI.createWidget(hmUI.widget.TEXT, {
-      x: 0,
-      y: 0,
-      w: px(480),
-      h: px(480),
-      text: "",
-    });
+    this.controlPlane = hmUI.createWidget(hmUI.widget.TEXT, CONTROL_PLANE_TEXT_STYLE);
     this.controlPlane.addEventListener(
       hmUI.event.CLICK_DOWN,
       this.controlCallBack[0],
@@ -136,16 +143,16 @@ export class InputMethod {
       this.controlCallBack[2],
     ); // TODO 可能不存在这种事件
     // 返回
-    if (globalData.params.targetAppid && globalData.params.targetUrl) {
-      hmApp.startApp({
-        appid: globalData.params.targetAppid,
-        url: globalData.params.targetUrl,
-        param: JSON.stringify({
-          ...globalData.params.targetExtraParam,
-          input: this.inputbox.text,
-        }),
-      });
-    }
+    // if (globalData.params.targetAppid && globalData.params.targetUrl) {
+    //   hmApp.startApp({
+    //     appid: globalData.params.targetAppid,
+    //     url: globalData.params.targetUrl,
+    //     param: JSON.stringify({
+    //       ...globalData.params.targetExtraParam,
+    //       input: this.inputbox.text,
+    //     }),
+    //   });
+    // }
   }
   delete() {}
   getText() {
@@ -154,4 +161,6 @@ export class InputMethod {
   setText(text) {
     this.inputbox.text = text;
   }
+  static KEYBOARD_TYPE = KEYBOARD_TYPE;
+  static INPUTBOX_TYPE = INPUTBOX_TYPE;
 }
