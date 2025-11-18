@@ -161,22 +161,11 @@ class TextLine {
     if (offsetX < 0 || offsetX > this.border.w) return -1;
     if (this.text.length == 0) return 0;
 
-    console.log("=== DEBUG getIndexFromOffsetX ===");
-    console.log("offsetX:", offsetX);
-    console.log("this.locX:", this.locX);
-    console.log("this.text:", JSON.stringify(this.text));
-    console.log("this.textWList:", this.textWList);
     let tempX = this.offsetBegin * -1;
-    console.log("starting tempX:", tempX);
-    console.log("starting charBegin:", this.charBegin);
 
     for (let i = this.charBegin; i < this.text.length; ++i) {
-      const char = this.text.charAt(i);
       const charWidth = this.textWList[i];
       tempX += charWidth;
-      console.log(
-        `i=${i}, char='${char}', width=${charWidth}, tempX=${tempX}, offsetX=${offsetX}`,
-      );
 
       if (tempX >= offsetX) {
         console.log(`FOUND: i=${i}, tempX=${tempX} >= offsetX=${offsetX}`);
@@ -184,15 +173,10 @@ class TextLine {
       }
     }
 
-    console.log("NOT FOUND, returning text.length:", this.text.length);
     return this.text.length;
   }
 
   setText(text) {
-    console.log("=== DEBUG setText ===");
-    console.log("old text:", JSON.stringify(this.text));
-    console.log("new text:", JSON.stringify(text));
-
     this.text = text;
     this.widget.setProperty(hmUI.prop.TEXT, text);
 
@@ -388,7 +372,6 @@ export const InputBoxLib = {
             this.charAt = this.textLine.getIndexFromOffsetX(
               info.x - this.border.x,
             );
-            // console.log("charAt"+this.charAt)
             this.cursor.move(
               this.textLine.getOffsetXFromIndex(this.charAt),
               true,
@@ -414,20 +397,17 @@ export const InputBoxLib = {
           }
           break;
       }
-      // console.log("onTouch() condition(end):" + this.condition)
-      // console.log("this.condition & InputboxCondition.MOVE="+(this.condition & InputboxCondition.MOVE))
     }
     link(res) {
-      // console.log("inputBox.link: package" + JSON.stringify(res))
       switch (res.event) {
-        case LINK_EVENT_TYPE.INPUT: // 输入
+        case LINK_EVENT_TYPE.INPUT:
           this.text =
             this.text.substring(0, this.charAt) +
             res.data +
             this.text.substring(this.charAt, this.text.length);
           ++this.charAt;
           break;
-        case LINK_EVENT_TYPE.DELETE: // 删除
+        case LINK_EVENT_TYPE.DELETE:
           if (this.text.length) {
             this.text =
               this.text.substring(0, this.charAt - 1) +
@@ -437,7 +417,7 @@ export const InputBoxLib = {
             console.log("inputBox: text is empty");
           }
           break;
-        case LINK_EVENT_TYPE.CHANGE: // 改变
+        case LINK_EVENT_TYPE.CHANGE:
           if (this.text.length) {
             this.text =
               this.text.substring(0, this.charAt - 1) +
@@ -464,8 +444,6 @@ export const InputBoxLib = {
         offset = this.border.w - this.safetyDistance;
       }
       this.cursor.move(offset, true);
-
-      // this.textWidget.setProperty(hmUI.prop.TEXT, this.text)
     }
     onDelete() {}
   },

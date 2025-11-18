@@ -562,18 +562,22 @@ export const KeyBoardLib = {
                 if (pinyinPart === "") {
                   return;
                 }
-                const updatedInput = this.father
-                  .getText()
-                  .slice(0, -pinyinPart.length);
-                this.father.setText(updatedInput);
+                for (let j = 0; j < pinyinPart.length; j++) {
+                  this.father.link(true, {
+                    event: LINK_EVENT_TYPE.DELETE,
+                    data: "",
+                  });
+                }
+
                 this.chooseWordArray = [];
                 this.chooseWordText.widget.setProperty(hmUI.prop.MORE, {
                   text: this.chooseWordArray.join("  "),
                 });
-                return {
+                console.log("word chosen:", word);
+                this.father.link(true, {
                   event: LINK_EVENT_TYPE.INPUT,
                   data: word,
-                };
+                });
               }
 
               currentStart = wordEnd + spaceWidth;

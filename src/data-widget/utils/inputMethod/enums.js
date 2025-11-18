@@ -22,13 +22,13 @@ export const LINK_EVENT_TYPE = {
 
 // 键盘状态
 export const KeyBoardCondition = {
-  FREE: "FREE", // 空闲状态
-  WAIT_WORD: "WAIT_WORD", // 等候选词
-  PRESS: "PRESS", // 按下状态
+    FREE: 0, // 空闲状态
+    WAIT_WORD: 1, // 等候选词
+    PRESS: 2, // 按下状态
 };
 
 export const InputboxCondition = {
-  NORMAL: "NORMAL", // 普通状态
-  PRESS: "PRESS", // 按下状态
-  MOVE: "MOVE", // 移动状态
+    NORMAL: 0,
+    PRESS: 1,
+    MOVE: 2,
 };

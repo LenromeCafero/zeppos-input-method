@@ -4,7 +4,7 @@ import { getTextLayout } from "@zos/ui";
 import { InputMethod } from "../utils/inputMethod/inputMethod";
 
 const inputMethod = new InputMethod({
-  keyboard_type: "EN",
+  keyboard_type: "ZH_CN_PY",
   inputbox_type: "NORMAL",
   text: "",
   title: "输入法",
