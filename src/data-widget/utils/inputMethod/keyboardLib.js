@@ -544,14 +544,6 @@ export const KeyBoardLib = {
         case hmUI.event.CLICK_UP:
           if (this.condition === KeyBoardCondition.PRESS) {
             const spaceWidth = px(14);
-            // 添加调试信息
-            console.log(`[DEBUG] 点击绝对位置: ${info.x}`);
-            console.log(
-              `[DEBUG] 候选词区域起始X: ${this.chooseWordText.border.x}`,
-            );
-            console.log(
-              `[DEBUG] 相对点击位置: ${info.x - this.chooseWordText.border.x}`,
-            );
             let currentStart = 0;
             for (let i = 0; i < this.chooseWordArray.length; i++) {
               const word = this.chooseWordArray[i];
@@ -561,17 +553,12 @@ export const KeyBoardLib = {
                 wrapped: 0,
               });
               const wordEnd = currentStart + wordWidth;
-              console.log(
-                `[DEBUG] 候选词 "${word}" 范围: ${currentStart} - ${wordEnd}`,
-              );
-
               if (
                 info.x - this.chooseWordText.border.x >= currentStart &&
                 info.x - this.chooseWordText.border.x < wordEnd
               ) {
-                console.log(`[DEBUG] 匹配到词: ${word}`);
                 const match = this.father.getText().match(/[a-z]+$/i);
-                const pinyinPart = match ? match[0] : ""; // 提取的拼音部分
+                const pinyinPart = match ? match[0] : "";
                 if (pinyinPart === "") {
                   return;
                 }

@@ -166,7 +166,6 @@ class TextLine {
     console.log("this.locX:", this.locX);
     console.log("this.text:", JSON.stringify(this.text));
     console.log("this.textWList:", this.textWList);
-
     let tempX = this.offsetBegin * -1;
     console.log("starting tempX:", tempX);
     console.log("starting charBegin:", this.charBegin);

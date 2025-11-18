@@ -14,7 +14,7 @@ import {
   KeyBoardCondition,
   InputboxCondition,
 } from "./enums";
-import { BOUNDARY_Y,CONTROL_PLANE_TEXT_STYLE } from "./styles";
+import { BOUNDARY_Y, CONTROL_PLANE_TEXT_STYLE } from "./styles";
 
 const app = getApp();
 const globalData = app._options.globalData;
@@ -52,22 +52,19 @@ export class InputMethod {
     this.controlPlane = null;
     this.controlCallBack = [
       (info) => {
-        /* console.log("callback:CD"); */ this.touch(
-          hmUI.event.CLICK_DOWN,
-          info,
-        );
+        this.touch(hmUI.event.CLICK_DOWN, info);
       },
       (info) => {
-        /* console.log("callback:CI"); */ this.touch(hmUI.event.CLICK_UP, info);
+        this.touch(hmUI.event.CLICK_UP, info);
       },
       (info) => {
-        /* console.log("callbackM:"); */ this.touch(hmUI.event.MOVE, info);
+        this.touch(hmUI.event.MOVE, info);
       },
       (info) => {
-        /* console.log("callbackMI:"); */ this.touch(hmUI.event.MOVE_IN, info);
+        this.touch(hmUI.event.MOVE_IN, info);
       },
       (info) => {
-        /* console.log("callbackMO:"); */ this.touch(hmUI.event.MOVE_OUT, info);
+        this.touch(hmUI.event.MOVE_OUT, info);
       },
     ];
     this.controlLastY = 0;
@@ -75,7 +72,10 @@ export class InputMethod {
   start() {
     this.inputbox.onCreate();
     this.keyboard.onCreate();
-    this.controlPlane = hmUI.createWidget(hmUI.widget.TEXT, CONTROL_PLANE_TEXT_STYLE);
+    this.controlPlane = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      CONTROL_PLANE_TEXT_STYLE,
+    );
     this.controlPlane.addEventListener(
       hmUI.event.CLICK_DOWN,
       this.controlCallBack[0],
